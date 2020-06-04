@@ -22,7 +22,7 @@ class TipoProductoController extends Controller
     public function show($id)
     {
         try {
-            $info = TipoProducto::findOrFail($id);
+            $info = TipoProducto::where('idtipoproducto','=',$id)->firstOrFail();
             return response()->json([
                 'success' => true,
                 'message' =>'Tipo buscado',
@@ -57,5 +57,25 @@ class TipoProductoController extends Controller
         ], 200);
 
     }//fin funcion store
+
+    public function update($id, Request $request)
+    {
+        try{
+            $info = TipoProducto::where('idtipoproducto','=',$id)->firstOrFail();
+            TipoProducto::where('idtipoproducto', $id)
+            ->update(['nombretipo'=>$request->get('nombretipo'), 
+            'pasillo'=>$request->get('pasillo'),
+            'impuesto'=>$request->get('impuesto'),]);
+            
+            return response()->json([
+                'success' => true,
+                'message' =>'Registro actualizado correctamente'
+            ], 200);
+        }
+        catch(\Throwable $th){
+            return response()->json(['message' => "El Tipo de Producto numero {$id} no existe"], 404);
+        }
+
+    }
 
 }

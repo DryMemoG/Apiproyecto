@@ -22,7 +22,7 @@ class ProductoController extends Controller
     public function show($id)
     {
         try {
-            $info = Producto::findOrFail($id);
+            $info = Producto::where('idproducto','=',$id)->firstOrFail();
             return response()->json([
                 'success' => true,
                 'message' =>'Producto buscado',
@@ -60,4 +60,25 @@ class ProductoController extends Controller
 
     }//fin funcion store
 
+    public function update($id, Request $request)
+    {
+        try{
+            $info = Producto::where('idproducto','=',$id)->firstOrFail();
+            Producto::where('idproducto', $id)
+            ->update(['nombreproducto'=>$request->get('nombreproducto'), 
+            'idtipoproducto'=>$request->get('idtipoproducto'),
+            'precio'=>$request->get('precio'),
+            'cantidad'=>$request->get('cantidad'),
+            'idproveedor'=>$request->get('idproveedor'),]);
+            
+            return response()->json([
+                'success' => true,
+                'message' =>'Registro actualizado correctamente'
+            ], 200);
+        }
+        catch(\Throwable $th){
+            return response()->json(['message' => "El Producto numero {$id} no existe"], 404);
+        }
+
+    }
 }

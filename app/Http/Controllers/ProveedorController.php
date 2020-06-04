@@ -22,7 +22,7 @@ class ProveedorController extends Controller
     public function show($id)
     {
         try {
-            $info = Proveedor::findOrFail($id);
+            $info = Proveedor::where('idproveedor','=',$id)->firstOrFail();
             return response()->json([
                 'success' => true,
                 'message' =>'Proveedor buscado',
@@ -59,4 +59,25 @@ class ProveedorController extends Controller
 
     }//fin funcion store
 
+    public function update($id, Request $request)
+    {
+        try{
+            $info = TipoProducto::where('idproveedor','=',$id)->firstOrFail();
+            TipoProducto::where('idproveedor', $id)
+            ->update(['nombreproveedor'=>$request->get('nombreproveedor'), 
+            'direccion'=>$request->get('direccion'),
+            'impuesto'=>$request->get('impuesto'),
+            'NIT'=>$request->get('NIT'),
+            'fechachontrato'=>$request->get('fechacontrato'),]);
+            
+            return response()->json([
+                'success' => true,
+                'message' =>'Registro actualizado correctamente'
+            ], 200);
+        }
+        catch(\Throwable $th){
+            return response()->json(['message' => "El Proveedor numero {$id} no existe"], 404);
+        }
+
+    }
 }
