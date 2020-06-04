@@ -14,3 +14,18 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+Route::group(['prefix' => 'api'], function()
+{
+    //Proveedores
+    Route::get('proveedor', 'ProveedorController@index');
+    Route::get('proveedor/{id}', 'ProveedorController@show');
+    Route::post('proveedor', 'ProveedorController@store');
+    //tiposproducto
+    Route::get('tipoproducto', 'TipoProductoController@index');
+    Route::get('tipoproducto/{id}', 'TipoProductoController@show');
+    Route::post('tipoproducto', 'TipoProductoController@store');
+    //Productos
+    Route::get('producto', 'ProductoController@index');
+    Route::get('producto/{id}', 'ProductoController@show');
+    Route::post('producto', 'ProductoController@store');
+});
