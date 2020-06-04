@@ -43,7 +43,7 @@ class ProveedorController extends Controller
 
          ]);
 
-         $info = Proveedor::whereNombre($request->get('nombreproveedor'))
+         $info = Proveedor::wherenombreproveedor($request->get('nombreproveedor'))
          ->first();
 
          if($info) {

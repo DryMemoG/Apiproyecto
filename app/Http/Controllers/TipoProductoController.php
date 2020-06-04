@@ -42,7 +42,7 @@ class TipoProductoController extends Controller
 
          ]);
 
-         $info = TipoProducto::whereNombre($request->get('nombretipo'))
+         $info = TipoProducto::wherenombretipo($request->get('nombretipo'))
          ->first();
 
          if($info) {

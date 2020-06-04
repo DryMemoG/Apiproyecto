@@ -44,7 +44,7 @@ class ProductoController extends Controller
 
          ]);
 
-         $info = Producto::whereNombre($request->get('nombreproducto'))
+         $info = Producto::wherenombreproducto($request->get('nombreproducto'))
          ->first();
 
          if($info) {
